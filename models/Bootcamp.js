@@ -144,4 +144,5 @@ BootcampSchema.virtual("courses", {
   foreignField: "bootcamp",
   justOne: false,
 });
+
 module.exports = mongoose.model("Bootcamp", BootcampSchema);

@@ -9,6 +9,7 @@ const errorHandler = require("./middleware/error");
 const connectDb = require("./util/db");
 const bootcampsRoutes = require("./routes/bootcamps");
 const coursesRoutes = require("./routes/courses");
+const authRoutes = require("./routes/auth");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === "development") {
 
 app.use("/api/v1/bootcamps", bootcampsRoutes);
 app.use("/api/v1/courses", coursesRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use(errorHandler);
 
 const server = app.listen(PORT, () => {
