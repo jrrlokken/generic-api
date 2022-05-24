@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const Bootcamp = require("./models/Bootcamp");
 const Course = require("./models/Course");
+const User = require("./models/User");
 
 mongoose.connect(process.env.MONGODB_URI, () => {
   console.log("Opened connection to MongoDB for seeder...");

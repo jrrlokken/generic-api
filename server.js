@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 const errorHandler = require("./middleware/error");
 const connectDb = require("./util/db");
@@ -20,6 +21,7 @@ app.set("query parser", "extended");
 app.use(express.json());
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
