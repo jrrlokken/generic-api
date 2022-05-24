@@ -5,6 +5,12 @@ const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const rateLimit = require("express-rate-limit");
+const cors = require("cors");
+const helmet = require("helmet");
+const hpp = require("hpp");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const errorHandler = require("./middleware/error");
 const connectDb = require("./util/db");
@@ -22,13 +28,25 @@ connectDb();
 app.set("query parser", "extended");
 app.use(express.json());
 app.use(fileUpload());
-app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
+app.use(mongoSanitize());
+app.use(helmet());
+app.use(xss());
+app.use(hpp());
+app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/v1/bootcamps", bootcampsRoutes);
 app.use("/api/v1/courses", coursesRoutes);
