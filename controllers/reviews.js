@@ -61,10 +61,10 @@ exports.addReview = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Update review
-// @route   PUT /api/v1/reviews/:reviewId
+// @route   PUT /api/v1/reviews/:id
 // @access  Private
 exports.updateReview = asyncHandler(async (req, res, next) => {
-  let review = await Review.findById(req.params.reviewId);
+  let review = await Review.findById(req.params.id);
   if (!review) {
     return next(new ErrorResponse("Resource not found", 404));
   }
@@ -85,10 +85,10 @@ exports.updateReview = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Delete review
-// @route   DELETE /api/v1/reviews/:reviewId
+// @route   DELETE /api/v1/reviews/:id
 // @access  Private
 exports.deleteReview = asyncHandler(async (req, res, next) => {
-  let review = await Review.findById(req.params.reviewId);
+  let review = await Review.findById(req.params.id);
   if (!review) {
     return next(new ErrorResponse("Resource not found", 404));
   }
